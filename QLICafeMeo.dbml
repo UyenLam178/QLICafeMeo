@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QLICafeMeo" EntityNamespace="QLICafeMeo" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=QLICafeMeo;Integrated Security=True;Encrypt=True;Trust Server Certificate=True" SettingsObjectName="QLICafeMeo.Properties.Settings" SettingsPropertyName="QLICafeMeoConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ChiTietHoaDon" Member="ChiTietHoaDons">
+    <Type Name="ChiTietHoaDon">
+      <Column Name="[MÃ CHI TIẾT]" Member="MÃ_CHI_TIẾT" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[MÃ HÓA ĐƠN]" Member="MÃ_HÓA_ĐƠN" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[MÃ MÓN]" Member="MÃ_MÓN" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[SỐ LƯỢNG]" Member="SỐ_LƯỢNG" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[ĐƠN GIÁ]" Member="ĐƠN_GIÁ" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Association Name="HoaDon_ChiTietHoaDon" Member="HoaDon" ThisKey="MÃ_HÓA_ĐƠN" OtherKey="MÃ_HÓA_ĐƠN" Type="HoaDon" IsForeignKey="true" />
+      <Association Name="Mon_ChiTietHoaDon" Member="Mon" ThisKey="MÃ_MÓN" OtherKey="MÃ_MÓN" Type="Mon" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TaiKhoan" Member="TaiKhoans">
+    <Type Name="TaiKhoan">
+      <Column Name="[TÊN ĐĂNG NHẬP]" Member="TÊN_ĐĂNG_NHẬP" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="[MẬT KHẨU]" Member="MẬT_KHẨU" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="QUYỀN" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="TaiKhoan_NhanVien" Member="NhanViens" ThisKey="TÊN_ĐĂNG_NHẬP" OtherKey="TÊN_ĐĂNG_NHẬP" Type="NhanVien" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HoaDon" Member="HoaDons">
+    <Type Name="HoaDon">
+      <Column Name="[MÃ HÓA ĐƠN]" Member="MÃ_HÓA_ĐƠN" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[NGÀY LẬP]" Member="NGÀY_LẬP" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[MÃ NHÂN VIÊN]" Member="MÃ_NHÂN_VIÊN" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[MÃ KHÁCH HÀNG]" Member="MÃ_KHÁCH_HÀNG" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[TỔNG TIỀN]" Member="TỔNG_TIỀN" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Association Name="HoaDon_ChiTietHoaDon" Member="ChiTietHoaDons" ThisKey="MÃ_HÓA_ĐƠN" OtherKey="MÃ_HÓA_ĐƠN" Type="ChiTietHoaDon" />
+      <Association Name="KhachHang_HoaDon" Member="KhachHang" ThisKey="MÃ_KHÁCH_HÀNG" OtherKey="MÃ_KHÁCH_HÀNG" Type="KhachHang" IsForeignKey="true" />
+      <Association Name="NhanVien_HoaDon" Member="NhanVien" ThisKey="MÃ_NHÂN_VIÊN" OtherKey="MÃ_NHÂN_VIÊN" Type="NhanVien" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.KhachHang" Member="KhachHangs">
+    <Type Name="KhachHang">
+      <Column Name="[MÃ KHÁCH HÀNG]" Member="MÃ_KHÁCH_HÀNG" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[HỌ TÊN]" Member="HỌ_TÊN" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="[SỐ ĐIỆN THOẠI]" Member="SỐ_ĐIỆN_THOẠI" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="[ĐIỂM TÍCH LŨY]" Member="ĐIỂM_TÍCH_LŨY" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[ĐÃ XÓA]" Member="ĐÃ_XÓA" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="KhachHang_HoaDon" Member="HoaDons" ThisKey="MÃ_KHÁCH_HÀNG" OtherKey="MÃ_KHÁCH_HÀNG" Type="HoaDon" />
+      <Association Name="KhachHang_SuKien" Member="SuKiens" ThisKey="MÃ_KHÁCH_HÀNG" OtherKey="MA_KHACH_HANG" Type="SuKien" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Meo" Member="Meos">
+    <Type Name="Meo">
+      <Column Name="[MÃ MÈO]" Member="MÃ_MÈO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[TÊN MÈO]" Member="TÊN_MÈO" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[GIỐNG MÈO]" Member="GIỐNG_MÈO" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[TÌNH TRẠNG]" Member="TÌNH_TRẠNG" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="[NGÀY TIÊM PHÒNG]" Member="NGÀY_TIÊM_PHÒNG" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="[GHI CHÚ]" Member="GHI_CHÚ" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="[ĐÃ XÓA]" Member="ĐÃ_XÓA" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Mon" Member="Mons">
+    <Type Name="Mon">
+      <Column Name="[MÃ MÓN]" Member="MÃ_MÓN" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[TÊN MÓN]" Member="TÊN_MÓN" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="GIÁ" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="LOẠI" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[NGỪNG KINH DOANH]" Member="NGỪNG_KINH_DOANH" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Mon_ChiTietHoaDon" Member="ChiTietHoaDons" ThisKey="MÃ_MÓN" OtherKey="MÃ_MÓN" Type="ChiTietHoaDon" />
+      <Association Name="Mon_SuKien" Member="SuKiens" ThisKey="MÃ_MÓN" OtherKey="MA_MON" Type="SuKien" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NhanVien" Member="NhanViens">
+    <Type Name="NhanVien">
+      <Column Name="[MÃ NHÂN VIÊN]" Member="MÃ_NHÂN_VIÊN" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[HỌ TÊN]" Member="HỌ_TÊN" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="[GIỚI TÍNH]" Member="GIỚI_TÍNH" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="[NGÀY SINH]" Member="NGÀY_SINH" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="[SỐ ĐIỆN THOẠI]" Member="SỐ_ĐIỆN_THOẠI" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="[CHỨC VỤ]" Member="CHỨC_VỤ" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[TÊN ĐĂNG NHẬP]" Member="TÊN_ĐĂNG_NHẬP" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[ĐÃ XÓA]" Member="ĐÃ_XÓA" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="NhanVien_HoaDon" Member="HoaDons" ThisKey="MÃ_NHÂN_VIÊN" OtherKey="MÃ_NHÂN_VIÊN" Type="HoaDon" />
+      <Association Name="TaiKhoan_NhanVien" Member="TaiKhoan" ThisKey="TÊN_ĐĂNG_NHẬP" OtherKey="TÊN_ĐĂNG_NHẬP" Type="TaiKhoan" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Phong" Member="Phongs">
+    <Type Name="Phong">
+      <Column Name="[MÃ PHÒNG]" Member="MÃ_PHÒNG" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[TÊN PHÒNG]" Member="TÊN_PHÒNG" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[SỨC CHỨA]" Member="SỨC_CHỨA" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[TRẠNG THÁI]" Member="TRẠNG_THÁI" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[ĐÃ XÓA]" Member="ĐÃ_XÓA" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SuKien" Member="SuKiens">
+    <Type Name="SuKien">
+      <Column Name="MA_SUKIEN" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TEN_SUKIEN" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="LOAI_KHUYENMAI" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MA_MON" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MA_KHACH_HANG" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GIA_TRI_GIAM" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="LOAI_GIAM" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="NGAY_BATDAU" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="NGAY_KETTHUC" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="TRANG_THAI" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DA_XOA" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="KhachHang_SuKien" Member="KhachHang" ThisKey="MA_KHACH_HANG" OtherKey="MÃ_KHÁCH_HÀNG" Type="KhachHang" IsForeignKey="true" />
+      <Association Name="Mon_SuKien" Member="Mon" ThisKey="MA_MON" OtherKey="MÃ_MÓN" Type="Mon" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
